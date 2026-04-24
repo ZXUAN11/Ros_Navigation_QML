@@ -42,6 +42,9 @@ set(SOURCES
     source/quick/imageProvider.h
     source/quick/imageProvider.cpp
 )
+set(QML_FILES
+    source/qml/Main.qml
+)
 set(RESOURCES resource.qrc)
 
 qt_add_executable(${PROJECT_NAME}
@@ -53,7 +56,7 @@ qt_add_qml_module(${PROJECT_NAME}
     URI ${PROJECT_NAME}
     VERSION 1.0
     QML_FILES
-    source/qml/Main.qml
+    ${QML_FILES}
 )
 
 target_link_libraries(${PROJECT_NAME}
@@ -84,6 +87,9 @@ target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/source/main
     ${CMAKE_CURRENT_SOURCE_DIR}/source/rosbridge
     ${CMAKE_CURRENT_SOURCE_DIR}/source/quick)
+
+add_subdirectory(./modules/TranslationHelper)
+setup_app_translations(${PROJECT_NAME} ${SOURCES} ${QML_FILES})
 
 include(GNUInstallDirs)
 install(TARGETS ${PROJECT_NAME}

@@ -4,6 +4,7 @@
 #include "rosBridge.h"
 #include "cvBridge.h"
 #include "imageProvider.h"
+#include "TranslationHelper.h"
 
 int main(int argc, char *argv[])
 {
@@ -11,7 +12,11 @@ int main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
 
+    TranslationHelper translator;
+    qmlRegisterSingletonInstance("App", 1, 0, "Translator", &translator);
+
     QQmlApplicationEngine engine;
+    translator.init(&engine, "Ros_Navigation_QML");
     engine.addImageProvider("rosImage", RosImageProvider::getInstance());
 
     qmlRegisterType<RosBridge>("RosBridge", 1, 0, "RosBridge");

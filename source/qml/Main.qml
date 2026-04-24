@@ -1,10 +1,15 @@
 import QtQuick
 import RosBridge 1.0
+import App 1.0
 
 Window {
     width: 800
     height: 600
     visible: true
+
+    Component.onCompleted: {
+        Translator.setLanguage(1) // 切换到英文
+    }
 
     CVBridge {
         id: cvBridge
@@ -24,7 +29,7 @@ Window {
             anchors.bottom: parent.bottom
             anchors.horizontalCenter: parent.horizontalCenter
             color: "white"
-            text: "坐标: " + rosbidge.x + ", " + rosbidge.y
+            text: qsTr("坐标: %1, %2").arg(rosbidge.x).arg(rosbidge.y)
         }
     }
 }
